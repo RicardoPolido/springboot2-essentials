@@ -3,6 +3,7 @@ package com.rpolido.springboot2essentials.service;
 import com.rpolido.springboot2essentials.controller.dto.AnimeInsertDTO;
 import com.rpolido.springboot2essentials.controller.dto.AnimeUpdateDTO;
 import com.rpolido.springboot2essentials.domain.Anime;
+import com.rpolido.springboot2essentials.mapper.AnimeMapper;
 import com.rpolido.springboot2essentials.repository.AnimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,9 +29,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimeInsertDTO animeInsertDTO) {
-        return repository.save(Anime.builder()
-                .name(animeInsertDTO.getName())
-                .build());
+        return repository.save(AnimeMapper.INSTANCE.toAnime(animeInsertDTO));
     }
 
     public void delete(long id) {
@@ -41,10 +40,8 @@ public class AnimeService {
 
         final var savedAnime = findByIdOrThrowBadRequestException(animeUpdateDTO.getId());
 
-        final var anime = Anime.builder()
-                .id(savedAnime.getId())
-                .name(animeUpdateDTO.getName())
-                .build();
+        final var anime = AnimeMapper.INSTANCE.toAnime(animeUpdateDTO);
+        anime.setId(savedAnime.getId());
 
         repository.save(anime);
     }
