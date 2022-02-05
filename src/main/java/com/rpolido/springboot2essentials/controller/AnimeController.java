@@ -1,5 +1,7 @@
 package com.rpolido.springboot2essentials.controller;
 
+import com.rpolido.springboot2essentials.controller.dto.AnimeInsertDTO;
+import com.rpolido.springboot2essentials.controller.dto.AnimeUpdateDTO;
 import com.rpolido.springboot2essentials.domain.Anime;
 import com.rpolido.springboot2essentials.service.AnimeService;
 import com.rpolido.springboot2essentials.util.DateUtil;
@@ -31,16 +33,16 @@ public class AnimeController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable long id) {
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
+    public ResponseEntity<Anime> save(@RequestBody AnimeInsertDTO anime) {
         return new ResponseEntity<>(animeService.save(anime), CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Anime anime) {
+    public ResponseEntity<Void> replace(@RequestBody AnimeUpdateDTO anime) {
         animeService.replace(anime);
         return new ResponseEntity<>(NO_CONTENT);
     }
