@@ -3,15 +3,13 @@ package com.rpolido.springboot2essentials.service;
 import com.rpolido.springboot2essentials.controller.dto.AnimeInsertDTO;
 import com.rpolido.springboot2essentials.controller.dto.AnimeUpdateDTO;
 import com.rpolido.springboot2essentials.domain.Anime;
+import com.rpolido.springboot2essentials.exception.BadRequestException;
 import com.rpolido.springboot2essentials.mapper.AnimeMapper;
 import com.rpolido.springboot2essentials.repository.AnimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +27,7 @@ public class AnimeService {
 
     public Anime findByIdOrThrowBadRequestException(long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "Anime not Found"));
+                .orElseThrow(() -> new BadRequestException("Anime not Found"));
     }
 
     public Anime save(AnimeInsertDTO animeInsertDTO) {
