@@ -8,6 +8,7 @@ import com.rpolido.springboot2essentials.mapper.AnimeMapper;
 import com.rpolido.springboot2essentials.repository.AnimeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class AnimeService {
                 .orElseThrow(() -> new BadRequestException("Anime not Found"));
     }
 
+    @Transactional
     public Anime save(AnimeInsertDTO animeInsertDTO) {
         return repository.save(AnimeMapper.INSTANCE.toAnime(animeInsertDTO));
     }

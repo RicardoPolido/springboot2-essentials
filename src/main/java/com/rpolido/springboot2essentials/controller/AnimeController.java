@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AnimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimeInsertDTO anime) {
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimeInsertDTO anime) {
         return new ResponseEntity<>(animeService.save(anime), CREATED);
     }
 
