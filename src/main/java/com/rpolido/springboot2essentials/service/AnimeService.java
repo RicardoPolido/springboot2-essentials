@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +23,10 @@ public class AnimeService {
 
     public Page<Anime> listAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public List<Anime> listAllNonPaged() {
+        return repository.findAll();
     }
 
     public List<Anime> findByName(String name) {
