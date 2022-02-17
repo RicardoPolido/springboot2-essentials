@@ -8,7 +8,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.validation.ConstraintViolationException;
 
-import static org.assertj.core.api.Assertions.*;
+import static com.rpolido.springboot2essentials.util.AnimeCreator.createAnimeToBeSaved;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @DataJpaTest
 @DisplayName("Tests for Anime Repository")
@@ -17,16 +19,10 @@ class AnimeRepositoryTest {
     @Autowired
     private AnimeRepository animeRepository;
 
-    private Anime createAnime() {
-        return Anime.builder()
-                .name("Hajime no Ipo")
-                .build();
-    }
-
     @Test
     @DisplayName("Save persist anime when Successful")
     public void save_PersistAnime_WhenSuccessful() {
-        final var animeToBeSaved = createAnime();
+        final var animeToBeSaved = createAnimeToBeSaved();
         final var animeSaved = animeRepository.save(animeToBeSaved);
 
         assertThat(animeSaved).isNotNull();
@@ -37,7 +33,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Save update anime when Successful")
     public void save_UpdateAnime_WhenSuccessful() {
-        final var animeToBeSaved = createAnime();
+        final var animeToBeSaved = createAnimeToBeSaved();
         final var animeSaved = animeRepository.save(animeToBeSaved);
 
         animeSaved.setName("Overlord");
@@ -52,7 +48,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Delete removes anime when Successful")
     public void delete_RemoveAnime_WhenSuccessful() {
-        final var animeToBeSaved = createAnime();
+        final var animeToBeSaved = createAnimeToBeSaved();
         final var animeSaved = animeRepository.save(animeToBeSaved);
 
         animeSaved.setName("Overlord");
@@ -67,7 +63,7 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Find by Name returns list of anime when Successful")
     public void findByName_ReturnsListOfAnime_WhenSuccessful() {
-        final var animeToBeSaved = createAnime();
+        final var animeToBeSaved = createAnimeToBeSaved();
         final var animeSaved = animeRepository.save(animeToBeSaved);
 
         final var name = animeSaved.getName();
