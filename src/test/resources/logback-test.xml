@@ -1,0 +1,11 @@
+<configuration>
+    <appender name="SDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="SDOUT"/>
+    </root>
+</configuration>
