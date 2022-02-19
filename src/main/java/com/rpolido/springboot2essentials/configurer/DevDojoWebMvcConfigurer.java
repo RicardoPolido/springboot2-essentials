@@ -1,4 +1,4 @@
-package com.rpolido.springboot2essentials.config;
+package com.rpolido.springboot2essentials.configurer;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.PageRequest;
